@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-recreate
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: echo
+      strategy: recreate
+  template:
+    metadata:
+      labels:
+        app: echo
+        strategy: recreate
+    spec:
+      containers:
+      - name: echo
+        image: ealen/echo-server:0.1
+        ports:
+          - containerPort: 80
+        readinessProbe:
+          httpGet: { path: "/", port: 80 }
+        livenessProbe:
+          httpGet: { path: "/", port: 80 }

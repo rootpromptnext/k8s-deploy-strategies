@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-tester
+spec:
+  containers:
+  - name: curl
+    image: curlimages/curl:8.6.0
+    command: ["sleep", "36000"]
