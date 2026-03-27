@@ -101,7 +101,7 @@ Strategy:
 ```sh
 kubectl exec -it curl-tester -- sh
 curl -s http://echo
-while true; do curl -s http://echo ; sleep 1; done
+while true; do curl --max-time 1 http://echo ; sleep 1; done
 ```
 
 Expect timeouts → downtime is part of Recreate.
