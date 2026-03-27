@@ -18,7 +18,10 @@ spec:
     spec:
       containers:
       - name: echo
-        image: ealen/echo-server:0.1
+        image: hashicorp/http-echo:0.2.3
+        args:
+          - "-text=Hello from v1"
+          - "-listen=:80"
         ports:
           - containerPort: 80
         readinessProbe:
