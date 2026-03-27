@@ -40,33 +40,6 @@ Covers **Recreate, Rolling, Blue‑Green, Canary**
     │   └── test-canary.sh
     └── README.md
 
-***
-
-# MicroK8s Setup
-
-# Install MicroK8s
-sudo snap install microk8s --classic
-
-# Wait until MicroK8s is ready
-microk8s status --wait-ready
-
-# Refresh group membership
-newgrp microk8s
-
-# Verify status
-microk8s status
-
-# Create kubectl alias
-sudo snap alias microk8s.kubectl kubectl
-
-# Check cluster nodes
-kubectl get nodes
-
-# Enable DNS, storage, and ingress
-microk8s enable dns hostpath-storage
-
-***
-
 # Deploy Common Components
 
 ## ClusterIP Service
