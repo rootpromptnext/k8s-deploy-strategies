@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-rolling
+spec:
+  replicas: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: echo
+      strategy: rolling
+  template:
+    metadata:
+      labels:
+        app: echo
+        strategy: rolling
+    spec:
+      containers:
+      - name: echo
+        image: hashicorp/http-echo:0.2.3
+        args:
+          - "-text=Hello from v2"
+          - "-listen=:80"
+        ports:
+          - containerPort: 80
+        readinessProbe:
+          httpGet: { path: "/", port: 80 }
+        livenessProbe:
+          httpGet: { path: "/", port: 80 }
