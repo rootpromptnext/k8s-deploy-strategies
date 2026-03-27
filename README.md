@@ -318,6 +318,29 @@ You should see:
 - **Hello from v1** most of the time (production).  
 - **Hello from v2** about 20% of the time (canary).
 
+## Output for reference
+```
+prayag@devops-vm:~/k8s-deploy-strategies/manifests/canary$ while true; do curl --max-time 1 demo.local ; sleep 1; done
+Hello from v1
+Hello from v1
+Hello from v2
+Hello from v2
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v2
+Hello from v2
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+^C
+prayag@devops-vm:~/k8s-deploy-strategies/manifests/canary$
+
+```
+
 # Health Probes
 
 Each deployment uses:
