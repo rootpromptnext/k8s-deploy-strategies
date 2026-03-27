@@ -197,7 +197,7 @@ Strategy:
 ### apply green
 
 ```sh
-kubectl apply -f manifests/recreate/green.yaml
+kubectl apply -f manifests/blue-green/green.yaml
 ```
 
 Switch traffic:
