@@ -27,9 +27,10 @@ Covers **Recreate, Rolling, Blue‑Green, Canary**
     │   │   ├── green.yaml
     │   │   └── switch-to-green.sh
     │   ├── canary/
-    │   │   ├── stable.yaml
-    │   │   ├── canary.yaml
-    │   │   └── scale-canary.sh
+    │   │   ├── v1.yaml
+    │   │   ├── v2.yaml
+    │   │   └── demo-ingress.yaml
+    |   |   |__ canary-ingress.yaml
     ├── scripts/
     │   ├── deploy-all.sh
     │   ├── test-recreate.sh
