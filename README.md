@@ -39,13 +39,73 @@ Covers **Recreate, Rolling, Blue‑Green, Canary**
     │   └── test-canary.sh
     └── README.md
 
-# Deploy Common Components
+## Install MicroK8s Manually
 
-## ClusterIP Service
+```bash
+# Install MicroK8s
+sudo snap install microk8s --classic
 
-Used by all strategies.
+# Wait until MicroK8s is ready
+microk8s status --wait-ready
 
-    manifests/service.yaml
+# Refresh group membership
+newgrp microk8s
+
+# Verify status
+microk8s status
+
+# Create kubectl alias
+sudo snap alias microk8s.kubectl kubectl
+
+# Check cluster nodes
+kubectl get nodes
+
+# Enable DNS, storage, and ingress
+microk8s enable dns storage
+microk8s enable ingress
+```
+
+## Expose Ingress via NodePort
+
+By default, MicroK8s ingress doesn’t create a Service. Add one manually:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-ingress-microk8s-controller
+  namespace: ingress
+spec:
+  type: NodePort
+  selector:
+    name: nginx-ingress-microk8s
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+    protocol: TCP
+```
+
+Apply it:
+
+```bash
+kubectl apply -f ingress-service.yaml
+kubectl -n ingress get all
+```
+
+Find your node IP:
+
+```bash
+hostname -I
+ip a
+```
+
+For local testing, add an entry in `/etc/hosts`:
+
+```bash
+echo "10.10.0.2 demo.local" | sudo tee -a /etc/hosts
+```
+
 
 ## curl Test Pod
 
