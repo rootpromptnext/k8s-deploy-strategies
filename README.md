@@ -12,8 +12,6 @@ Testing done via an **internal curl test pod**
 Includes **health probes**  
 Covers **Recreate, Rolling, Blue‑Green, Canary**  
 
-***
-
 # Repository Structure
 
     k8s-deployment-strategies-microk8s-lab/
@@ -175,8 +173,6 @@ Hello from v2
 Hello from v2
 ```
 
-***
-
 ## C) Blue‑Green Deployment
 
 `manifests/blue-green/blue.yaml`  
@@ -231,8 +227,6 @@ while true; do curl -s http://echo | jq '.hostname'; sleep 1; done
 
 You will see occasional canary responses.
 
-***
-
 # Health Probes
 
 Each deployment uses:
@@ -253,8 +247,6 @@ livenessProbe:
 
 Ensures robust rollouts  
 Prevents routing traffic to unready pods
-
-***
 
 # Cleanup
 
