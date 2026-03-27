@@ -197,7 +197,7 @@ Strategy:
 ### apply green
 
 ```sh
-kubectl apply -f manifests/recreate/green.yaml
+kubectl apply -f manifests/blue-green/green.yaml
 ```
 
 Switch traffic:
@@ -225,7 +225,7 @@ kubectl get pods -l version=blue -o wide
 ```
 ### Check service
 ```sh
-kubectl get svc echo -o yaml | grep selector -A
+kubectl get svc echo -o yaml | grep selector -a5
 ```
 ### Sample output
 
