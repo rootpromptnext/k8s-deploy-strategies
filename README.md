@@ -302,26 +302,22 @@ Hello from GREEN
 
 ## D) Canary Deployment
 
-`manifests/canary/stable.yaml`  
-`manifests/canary/canary.yaml`
+### Deploy Applications
+Apply the manifests (`v1.yaml`, `v2.yaml`, `demo-ingress.yaml`, `canary-ingress.yaml`).  
 
-Strategy:
-
-*   Send small % of traffic to canary
-*   Observe behavior before full rollout
-
-Traffic ratio:
-
-*   3 stable pods → 75%
-*   1 canary pod → 25%
-
-### Test
-
-```sh
-while true; do curl -s http://echo | jq '.hostname'; sleep 1; done
+```bash
+kubectl apply -f manifests/
 ```
 
-You will see occasional canary responses.
+## Test Canary Deployment
+
+```bash
+curl http://demo.local:30080
+```
+
+You should see:
+- **Hello from v1** most of the time (production).  
+- **Hello from v2** about 20% of the time (canary).
 
 # Health Probes
 
