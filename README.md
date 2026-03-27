@@ -175,15 +175,30 @@ Hello from v2
 
 ## C) Blue‑Green Deployment
 
-`manifests/blue-green/blue.yaml`  
-`manifests/blue-green/green.yaml`  
-`manifests/blue-green/switch-to-green.sh`
+### Initial apply blue
 
+```sh
+kubectl apply -f manifests/blue-green/blue.yaml
+kubectl apply -f service.yaml
+```
+
+### Test
+
+```sh
+kubectl exec -it curl-tester -- sh
+curl -s http://echo
+```
 Strategy:
 
 *   Run **Blue** and **Green** simultaneously
 *   Service switches between them instantly
 *   Zero downtime + easy rollback
+
+### apply green
+
+```sh
+kubectl apply -f manifests/recreate/green.yaml
+```
 
 Switch traffic:
 
@@ -191,16 +206,27 @@ Switch traffic:
 ./manifests/blue-green/switch-to-green.sh
 ```
 
-### Test
+### Test (from inside curl pod)
 
 Before switch → Blue  
 After switch → Green
 
 ```sh
-curl -s http://echo | jq '.hostname'
+kubectl exec -it curl-tester -- sh
+curl -s http://echo
+while true; do curl --max-time 1 http://echo ; sleep 1; done
 ```
 
 Traffic transition is instantaneous.
+
+### Check pods
+```sh
+kubectl get pods -l version=blue -o wide
+```
+### Check service
+```sh
+kubectl get svc echo -o yaml | grep selector -A
+```
 
 ***
 
