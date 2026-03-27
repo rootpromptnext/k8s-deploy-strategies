@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: echo-blue
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: echo
@@ -16,7 +16,12 @@ spec:
     spec:
       containers:
       - name: echo
-        image: ealen/echo-server:0.1
+        image: hashicorp/http-echo:0.2.3
+        args:
+          - "-text=Hello from BLUE"
+          - "-listen=:80"
+        ports:
+        - containerPort: 80
         readinessProbe:
           httpGet: { path: "/", port: 80 }
         livenessProbe:
