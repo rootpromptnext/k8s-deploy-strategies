@@ -31,12 +31,6 @@ Covers **Recreate, Rolling, Blue‑Green, Canary**
     │   │   ├── v2.yaml
     │   │   └── demo-ingress.yaml
     |   |   |__ canary-ingress.yaml
-    ├── scripts/
-    │   ├── deploy-all.sh
-    │   ├── test-recreate.sh
-    │   ├── test-rolling.sh
-    │   ├── test-blue-green.sh
-    │   └── test-canary.sh
     └── README.md
 
 ## Install MicroK8s Manually
