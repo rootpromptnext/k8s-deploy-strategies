@@ -66,33 +66,7 @@ Enter the pod:
 ```sh
 kubectl exec -it curl-tester -- sh
 ```
-
-### Sample timeout output
-
-```sh
-Hello from v1
-Hello from v1
-Hello from v1
-Hello from v1
-Hello from v1
-Hello from v1
-curl: (7) Failed to connect to echo port 80 after 3 ms: Could not connect to server
-curl: (28) Connection timed out after 1002 milliseconds
-curl: (7) Failed to connect to echo port 80 after 2 ms: Could not connect to server
-curl: (7) Failed to connect to echo port 80 after 1 ms: Could not connect to server
-Hello from v2
-Hello from v2
-Hello from v2
-Hello from v2
-Hello from v2
-Hello from v2
-```
-
-***
-
 # Deployment Strategies
-
-***
 
 ## A) Recreate Deployment
 
@@ -127,7 +101,26 @@ while true; do curl --max-time 1 http://echo ; sleep 1; done
 
 Expect timeouts → downtime is part of Recreate.
 
-***
+### Sample timeout output
+
+```sh
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+curl: (7) Failed to connect to echo port 80 after 3 ms: Could not connect to server
+curl: (28) Connection timed out after 1002 milliseconds
+curl: (7) Failed to connect to echo port 80 after 2 ms: Could not connect to server
+curl: (7) Failed to connect to echo port 80 after 1 ms: Could not connect to server
+Hello from v2
+Hello from v2
+Hello from v2
+Hello from v2
+Hello from v2
+Hello from v2
+```
 
 ## B) Rolling Update Deployment
 
