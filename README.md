@@ -124,27 +124,56 @@ Hello from v2
 
 ## B) Rolling Update Deployment
 
-`manifests/rolling/rolling.yaml`  
+### Initial v1
+
+`kubectl apply -f manifests/recreate/recreate-v1.yaml`  
+
+### Test
+
+```sh
+kubectl exec -it curl-tester -- sh
+curl -s http://echo
+```
+
 Strategy:
 
 *   Zero downtime
 *   Gradual pod replacement
 *   Controlled surge/unavailable pods
 
-Update:
+### Update to v2:
+
+`kubectl apply -f manifests/recreate/recreate-v2.yaml`  
+
+### Test (from inside curl pod)
 
 ```sh
-kubectl set image deployment/echo-rolling echo=ealen/echo-server:0.2
-kubectl rollout status deployment/echo-rolling
-```
-
-### Test
-
-```sh
-while true; do curl -s http://echo | jq '.hostname'; sleep 1; done
+kubectl exec -it curl-tester -- sh
+curl -s http://echo
+while true; do curl --max-time 1 http://echo ; sleep 1; done
 ```
 
 Expect interleaved pods during rollout.
+
+We see no downtime
+
+```sh
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v1
+Hello from v2
+Hello from v2
+Hello from v2
+Hello from v2
+Hello from v2
+Hello from v2
+Hello from v2
+```
 
 ***
 
