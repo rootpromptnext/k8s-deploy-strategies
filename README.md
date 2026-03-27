@@ -16,7 +16,6 @@ Covers **Recreate, Rolling, Blue‑Green, Canary**
 
     k8s-deployment-strategies-microk8s-lab/
     ├── manifests/
-    │   ├── service.yaml
     │   ├── test-pod.yaml
     │   ├── recreate/
     │   │   └── recreate.yaml
