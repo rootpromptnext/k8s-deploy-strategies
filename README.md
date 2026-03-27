@@ -227,6 +227,21 @@ kubectl get pods -l version=blue -o wide
 ```sh
 kubectl get svc echo -o yaml | grep selector -A
 ```
+### Sample output
+
+```sh
+Hello from BLUE
+Hello from BLUE
+Hello from BLUE
+Hello from BLUE
+Hello from BLUE
+Hello from GREEN
+Hello from GREEN
+Hello from GREEN
+Hello from GREEN
+Hello from GREEN
+Hello from GREEN
+```
 
 ***
 
