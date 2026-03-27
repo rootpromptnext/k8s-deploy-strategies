@@ -75,22 +75,28 @@ kubectl exec -it curl-tester -- sh
 
 ## A) Recreate Deployment
 
-`manifests/recreate/recreate.yaml`  
+### Initial v1
+
+`kubectl apply -f manifests/recreate/recreate-v1.yaml`  
+
+### Test
+
+`kubectl exec -it curl-tester -- curl http://echo 2>/dev/null`
+
 Strategy:
 
 *   Deletes **all old pods first**
 *   Then starts **new version**
 *   Causes **downtime**
 
-Update image:
+### Update to v2:
 
-```sh
-kubectl set image deployment/echo-recreate echo=ealen/echo-server:0.2
-```
+`kubectl apply -f manifests/recreate/recreate-v2.yaml`  
 
 ### Test (from inside curl pod)
 
 ```sh
+kubectl exec -it curl-tester -- /bin/sh
 while true; do curl -s http://echo | jq '.hostname'; sleep 1; done
 ```
 
