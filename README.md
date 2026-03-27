@@ -44,23 +44,26 @@ Covers **Recreate, Rolling, Blue‑Green, Canary**
 
 # MicroK8s Setup
 
-Enable essential addons:
+# Install MicroK8s
+sudo snap install microk8s --classic
 
-```sh
-sudo microk8s enable dns storage ingress
-```
+# Wait until MicroK8s is ready
+microk8s status --wait-ready
 
-(Optional)
+# Refresh group membership
+newgrp microk8s
 
-```sh
-sudo microk8s enable dashboard
-```
+# Verify status
+microk8s status
 
-Alias for convenience:
+# Create kubectl alias
+sudo snap alias microk8s.kubectl kubectl
 
-```sh
-alias kubectl="microk8s kubectl"
-```
+# Check cluster nodes
+kubectl get nodes
+
+# Enable DNS, storage, and ingress
+microk8s enable dns hostpath-storage
 
 ***
 
