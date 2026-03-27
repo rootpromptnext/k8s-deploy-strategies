@@ -81,8 +81,10 @@ kubectl exec -it curl-tester -- sh
 
 ### Test
 
-`kubectl run jq-tester --rm -it --image=alpine -- sh
-apk add jq curl`
+```sh
+kubectl exec -it curl-tester -- sh
+curl -s http://echo
+```
 
 Strategy:
 
@@ -97,9 +99,9 @@ Strategy:
 ### Test (from inside curl pod)
 
 ```sh
-kubectl run jq-tester --rm -it --image=alpine -- sh
-apk add jq curl
-while true; do curl -s http://echo | jq '.hostname'; sleep 1; done
+kubectl exec -it curl-tester -- sh
+curl -s http://echo
+while true; do curl -s http://echo ; sleep 1; done
 ```
 
 Expect timeouts → downtime is part of Recreate.
